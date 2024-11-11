@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/register', registerHat); 
 router.put('/edit/:id', editHat);
 router.delete('/delete/:id', deleteHat);
-router.get('/', getHats);
+router.get('/get/:id_usuario', getHats);
 
 module.exports = router;
 

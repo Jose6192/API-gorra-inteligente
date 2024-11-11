@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const authRoutes = require('./routes/authRoutes');
 const hatRoutes = require('./routes/hatRoutes');
+const ubicacionesRoutes = require('./routes/ubicacionesRoutes');
 const app = express();
 const cors = require('cors');
 
@@ -18,7 +19,8 @@ app.get('/', (req, res) => {
     res.send('API funcionando');
 });
 app.use('/auth', authRoutes);
-app.use('/hats', hatRoutes); 
+app.use('/hats', hatRoutes);
+app.use('/ubicaciones', ubicacionesRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

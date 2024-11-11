@@ -5,7 +5,7 @@ const db = mysql.createConnection({
     host: '34.174.127.163',
     user: 'root',
     password: 'R00t',
-    database: 'my_application_db'
+    database: 'gorra_inteligente'
 });
 
 db.connect((err) => {
