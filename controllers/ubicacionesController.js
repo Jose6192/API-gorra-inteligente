@@ -1,11 +1,11 @@
 const connection = require('../config/db');
 
 exports.guardarUbicacion = (req, res) => {
-  const { latitud, longitud, gorraId } = req.body;
+  const { latitud, longitud, id_gorra } = req.body;
 
   // Validación de los parámetros
-  if (!latitud || !longitud || !gorraId) {
-    return res.status(400).json({ error: 'Faltan parámetros: latitud, longitud, gorraId' });
+  if (!latitud || !longitud || !id_gorra) {
+    return res.status(400).json({ error: 'Faltan parámetros '});
   }
 
   // Validar rangos de latitud y longitud
@@ -14,16 +14,15 @@ exports.guardarUbicacion = (req, res) => {
   }
 
   // Consulta SQL para insertar la ubicación en la base de datos
-  const query = 'INSERT INTO ubicaciones (latitud, longitud, gorra_id) VALUES (?, ?, ?)';
+  const query = 'INSERT INTO Ubicaciones (id_gorra, latitud, longitud) VALUES (?, ?, ?)';
 
-  connection.query(query, [latitud, longitud, gorraId], (err, results) => {
+  connection.query(query, [id_gorra, latitud, longitud], (err, results) => {
     if (err) {
       return res.status(500).json({ error: 'Error al guardar la ubicación' });
     }
 
     res.status(201).json({
       message: 'Ubicación guardada correctamente',
-      id: results.insertId
     });
   });
 };

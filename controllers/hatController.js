@@ -42,10 +42,9 @@ exports.deleteHat = (req, res) => {
 };
 
 //lista de las gorras
-//DEBEMOS HACER QUE COICIDAN LOS DATOS PARA LOCATIONPAGE, INGRESA LOS DATOS DE LA UBICACION DE LAS GORRAS
 exports.getHats = (req, res) => {
     const { id_usuario } = req.params;
-    db.query('SELECT Gorras.id_gorra, Gorras.id_usuario, Gorras.modelo, Gorras.nombre, Gorras.estado, Ubicaciones.latitud AS coordinate_lat, Ubicaciones.longitud AS coordinate_lng  FROM Gorras AS Gorras LEFT JOIN Ubicaciones AS Ubicaciones ON Gorras.id_gorra = Gorras.id_gorra WHERE Gorras.id_usuario = ?', [id_usuario], (err, results) => {
+    db.query('SELECT Gorras.*, Ubicaciones.latitud, Ubicaciones.longitud FROM Gorras LEFT JOIN Ubicaciones ON Gorras.id_gorra = Ubicaciones.id_gorra WHERE id_usuario = ?', [id_usuario], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(results);
     });
