@@ -28,16 +28,10 @@ exports.guardarUbicacion = (req, res) => {
 };
 
 exports.obtenerUbicaciones = (req, res) => {
-  const query = `
-    SELECT 
-      Ubicaciones.*, 
-      gorras.nombre AS gorra_nombre, 
-      gorras.codigo AS gorra_codigo
-    FROM ubicaciones
-    LEFT JOIN gorras ON ubicaciones.gorra_id = gorras.id
-  `;
+   const id_usuario = req.body;
+  const query = "SELECT Ubicaciones.* FROM Ubicaciones  JOIN Gorras ON Ubicaciones.id_gorra = Gorras.id_gorra WHERE Gorras.id_usuario = ?;";
   
-  connection.query(query, (err, results) => {
+  connection.query(query, [id_usuario], (err, results) => {
     if (err) {
       console.log(err);
       return res.status(500).json({ error: 'Error al obtener las ubicaciones' });
