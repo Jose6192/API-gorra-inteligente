@@ -4,6 +4,6 @@ const ubicacionesController = require('../controllers/ubicacionesController');
 
 router.post('/guardar-ubicacion', ubicacionesController.guardarUbicacion);
 router.get('/ubicaciones', ubicacionesController.obtenerUbicaciones);
-router.put('/ubicacion/:id', ubicacionesController.actualizarUbicacion);  // Para actualizar
+router.patch('/actualizar-ubicacion', ubicacionesController.actualizarUbicacion);  // Para actualizar
 
 module.exports = router;

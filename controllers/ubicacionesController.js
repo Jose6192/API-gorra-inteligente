@@ -30,7 +30,7 @@ exports.guardarUbicacion = (req, res) => {
 exports.obtenerUbicaciones = (req, res) => {
   const query = `
     SELECT 
-      ubicaciones.*, 
+      Ubicaciones.*, 
       gorras.nombre AS gorra_nombre, 
       gorras.codigo AS gorra_codigo
     FROM ubicaciones
@@ -39,6 +39,7 @@ exports.obtenerUbicaciones = (req, res) => {
   
   connection.query(query, (err, results) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({ error: 'Error al obtener las ubicaciones' });
     }
 
@@ -48,12 +49,11 @@ exports.obtenerUbicaciones = (req, res) => {
 
 // Para actualizar una ubicación existente
 exports.actualizarUbicacion = (req, res) => {
-  const { id } = req.params;  // ID de la ubicación a actualizar
-  const { latitud, longitud, gorraId } = req.body;  // Nuevos datos de la ubicación
+  const { latitud, longitud, id_gorra } = req.body;  // Nuevos datos de la ubicación
 
   // Validación de los parámetros
-  if (!latitud || !longitud || !gorraId) {
-    return res.status(400).json({ error: 'Faltan parámetros: latitud, longitud, gorraId' });
+  if (!latitud || !longitud || !id_gorra) {
+    return res.status(400).json({ error: 'Faltan parámetros: latitud, longitud, id_gorra' });
   }
 
   // Validar rangos de latitud y longitud
@@ -62,13 +62,9 @@ exports.actualizarUbicacion = (req, res) => {
   }
 
   // Consulta SQL para actualizar la ubicación
-  const query = `
-    UPDATE ubicaciones 
-    SET latitud = ?, longitud = ?, gorra_id = ?
-    WHERE id = ?
-  `;
+  const query = "UPDATE Ubicaciones SET latitud = ?, longitud = ? WHERE id_gorra = ?;"
 
-  connection.query(query, [latitud, longitud, gorraId, id], (err, results) => {
+  connection.query(query, [latitud, longitud, id_gorra], (err, results) => {
     if (err) {
       return res.status(500).json({ error: 'Error al actualizar la ubicación' });
     }
@@ -78,11 +74,7 @@ exports.actualizarUbicacion = (req, res) => {
     }
 
     res.status(200).json({
-      message: 'Ubicación actualizada correctamente',
-      id: id,
-      latitud: latitud,
-      longitud: longitud,
-      gorraId: gorraId
+      message: 'Ubicación actualizada correctamente'
     });
   });
 };
