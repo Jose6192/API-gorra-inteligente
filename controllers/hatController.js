@@ -16,12 +16,12 @@ exports.registerHat = (req, res) => {
 
 // Editar
 exports.editHat = (req, res) => {
-    const { id } = req.params;
-    const { nombre, codigo } = req.body;
+    const { id_gorra } = req.params;
+    const { nombre, modelo, estado } = req.body;
 
     db.query(
-        'UPDATE gorras SET nombre = ?, codigo = ? WHERE id = ?',
-        [nombre, codigo, id],
+        'UPDATE Gorras SET nombre = ?, modelo = ?, estado = ?, WHERE id = ?',
+        [nombre, modelo, estado, id_gorra],
         (err, results) => {
             if (err) return res.status(500).json({ error: err.message });
             if (results.affectedRows === 0) return res.status(404).json({ message: 'Gorra no encontrada.' });
@@ -32,9 +32,9 @@ exports.editHat = (req, res) => {
 
 // Eliminar
 exports.deleteHat = (req, res) => {
-    const { id } = req.params;
+    const { id_gorra } = req.params;
 
-    db.query('DELETE FROM Gorras WHERE id = ?', [id], (err, results) => {
+    db.query('DELETE FROM Gorras WHERE id_gorra = ?', [id_gorra], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         if (results.affectedRows === 0) return res.status(404).json({ message: 'Gorra no encontrada.' });
         res.json({ message: 'Gorra eliminada exitosamente.' });

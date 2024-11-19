@@ -4,7 +4,7 @@ const { registerHat, editHat, deleteHat, getHats } = require('../controllers/hat
 const router = express.Router();
 
 router.post('/register', registerHat); 
-router.put('/edit/:id', editHat);
+router.patch('/edit/:id', editHat);
 router.delete('/delete/:id', deleteHat);
 router.get('/get/:id_usuario', getHats);
 

@@ -37,12 +37,12 @@ exports.login = (req, res) => {
 
 // Editar
 exports.editUser = async (req, res) => {
-    const { id } = req.params;
-    const { usuario, correo, contraseña } = req.body;
+    const { id_usuario } = req.params;
+    const { nombre, correo, contraseña } = req.body;
 
     const params = [];
-    let query = 'UPDATE usuarios SET usuario = ?, correo = ?';
-    params.push(usuario, correo);
+    let query = 'UPDATE Usuarios SET nombre = ?, correo = ?';
+    params.push(nombre, correo);
 
     if (contraseña) {
         const hashedPassword = await bcrypt.hash(contraseña, 10);
@@ -50,8 +50,8 @@ exports.editUser = async (req, res) => {
         params.push(hashedPassword);
     }
 
-    query += ' WHERE id = ?';
-    params.push(id);
+    query += ' WHERE id_usuario = ?';
+    params.push(id_usuario);
 
     db.query(query, params, (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
@@ -63,9 +63,9 @@ exports.editUser = async (req, res) => {
 
 // Eliminar
 exports.deleteUser = (req, res) => {
-    const { id } = req.params;
+    const { id_usuario } = req.params;
 
-    db.query('DELETE FROM usuarios WHERE id = ?', [id], (err, results) => {
+    db.query('DELETE FROM Usuarios WHERE id = ?', [id_usuario], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         if (results.affectedRows === 0) return res.status(404).json({ message: 'Usuario no encontrado.' });
         res.json({ message: 'Usuario eliminado exitosamente.' });
