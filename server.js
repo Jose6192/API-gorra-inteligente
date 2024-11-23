@@ -8,7 +8,8 @@ const ubicacionesRoutes = require('./routes/ubicacionesRoutes');
 const imagesRoutes = require('./routes/imagesRoutes');
 const app = express();
 const cors = require('cors');
-const syncDrive = require('./services/syncDrive');
+const syncDriveFolder = require('./services/syncDrive');
+const path = require('path');
 
 app.use(express.json());
 app.use(cors({
@@ -23,7 +24,7 @@ const IMAGES_FOLDER = path.join(__dirname, 'images');
 app.use('/images', express.static(IMAGES_FOLDER));
 
 // Sincronizar imágenes de Google Drive
-syncDrive.syncFolder();
+syncDriveFolder();
 
 // Rutas
 app.get('/', (req, res) => {

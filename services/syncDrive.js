@@ -72,5 +72,5 @@ async function syncDriveFolder() {
   }
 }
 
-// Ejecutar la sincronización
-syncDriveFolder();
+
+module.exports = syncDriveFolder;
