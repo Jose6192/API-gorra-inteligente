@@ -9,7 +9,10 @@ const CREDENTIALS_PATH = path.join(__dirname, 'credentials.json');
 const LOCAL_FOLDER = path.join(__dirname, 'images');
 
 // ID de la carpeta en Google Drive
-const DRIVE_FOLDER_ID = '19pH488O5Et4DLr7gNRoyYTiB6Cy2dCmT';
+//cosme
+const DRIVE_FOLDER_ID = '1Ribxiutz17X85uGObM6vx_y0Sn4J6CUz';
+//jose
+/* const DRIVE_FOLDER_ID = '19pH488O5Et4DLr7gNRoyYTiB6Cy2dCmT'; */
 
 // Autenticar con OAuth2
 async function authenticate() {

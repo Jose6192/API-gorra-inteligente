@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const IMAGES_FOLDER = path.join(__dirname, '../images');
+const IMAGES_FOLDER = path.join(__dirname, '../services/images');
 
 // Controlador para listar todas las imágenes
 exports.listImages = (req, res) => {
@@ -30,3 +30,18 @@ exports.getImage = (req, res) => {
   // Envía la imagen como respuesta
   res.sendFile(filePath);
 };
+
+// Controlador para servir todas las imagenes
+exports.getAllImages = (req, res) => {
+  // Lee los archivos en la carpeta
+  fs.readdir(IMAGES_FOLDER, (err, files) => {
+      if (err) {
+          console.error('Error al leer la carpeta de imágenes:', err);
+          return res.status(500).json({ error: 'No se pudieron cargar las imágenes' });
+      }
+
+      // Crea una lista de URLs para las imágenes
+      const images = files.map((file) => `${req.protocol}://${req.get('host')}/images/${file}`);
+      res.json({ images });
+  });
+}
